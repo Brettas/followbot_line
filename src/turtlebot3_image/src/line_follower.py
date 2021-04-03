@@ -14,7 +14,7 @@ class Follower:
 		self.bridge = CvBridge()
 		cv.namedWindow("window", 1)
 		self.image_sub = rospy.Subscriber('camera/rgb/image_raw',Image,self.image_callback)
-		self.cmd_vel_pub = rospy.Subscriber('cmd_vel', Twist, queue_size=1)
+		self.cmd_vel_pub = rospy.Subscriber('/cmd_vel', Twist, queue_size=1)
 		self.twist = Twist()
 
 	def image_callback(self, msg):
@@ -45,7 +45,7 @@ class Follower:
 			err = cx - w/2
 			self.twist.linear.x = 0.2
 			self.twist.angular.z = -float(err) / 100
-			self.cmd_vel_pub.publisher(self.twist)
+			self.cmd_vel_pub.publish(self.twist)
 		cv.imshow("window", image)
 		cv.waitKey(3)
 
