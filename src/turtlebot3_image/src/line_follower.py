@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 import rospy
 import cv2 as cv 
 import numpy
@@ -12,29 +11,31 @@ class Follower:
 
 	def __init__(self):
 		self.bridge = CvBridge()
-		cv.namedWindow("window", 1)
+		cv.namedWindow("Imagem", 1)
 		self.image_sub = rospy.Subscriber('camera/rgb/image_raw',Image,self.image_callback)
-		self.cmd_vel_pub = rospy.Subscriber('/cmd_vel', Twist, queue_size=1)
+		self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 		self.twist = Twist()
 
 	def image_callback(self, msg):
 		image = self.bridge.imgmsg_to_cv2(msg,desired_encoding='bgr8')
+		
 		#convert BGR to HSV
 		hsv = cv.cvtColor(image, cv.COLOR_BGR2HSV)
+		
 		# dinine range of yellow color HSV
 		lower_yellow = numpy.array([ 10, 10, 10])
 		upper_yellow = numpy.array([255, 255, 250])
+		
 		#Threshold the HSV image to get only yellow colors 
 		mask = cv.inRange(hsv, lower_yellow, upper_yellow)
 		
+		
 		h, w, d = image.shape
-		print(h, w, d)
 		search_top = 3*h/4
 		search_bot = 3*h/4 + 10
-		print(search_top, search_bot)
-		#mask[search_top:h] = 0
-		#mask[search_bot:h] = 0
-
+		
+		
+        
 		M = cv.moments(mask)
 		if M['m00'] > 0:
 			cx = int(M['m10']/M['m00'])
@@ -43,10 +44,10 @@ class Follower:
 #The proportional controller is implemented in the following four lines	which
 #is reposible of linear scaling of an error to drive the control output.	
 			err = cx - w/2
-			self.twist.linear.x = 0.2
+			self.twist.linear.x = 0.26
 			self.twist.angular.z = -float(err) / 100
 			self.cmd_vel_pub.publish(self.twist)
-		cv.imshow("window", image)
+		cv.imshow("Imagem", image)
 		cv.waitKey(3)
 
 rospy.init_node('line_follower')
