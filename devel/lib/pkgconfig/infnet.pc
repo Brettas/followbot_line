@@ -1,0 +1,8 @@
+prefix=/home/vini/catkin_ws/devel
+
+Name: infnet
+Description: Description of infnet
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

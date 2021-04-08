@@ -1,0 +1,61 @@
+<launch>
+    
+
+    <!-- Transformations TurtleBot3 - Publica transformacoes -->
+
+    <node name="turtlebot3_tf_broadcast" 
+        pkg="infnet" 
+        type="turtlebot3_tf_broadcast.py"
+        output="screen">
+
+        <remap from="odom" to="/odom"/>
+    </node>
+
+
+    <!-- Get Point from Message - Publica Centroide e Goal Base - Recebe imagem da camera -->
+
+    <arg name="show_image" default="1" />
+    
+    <rosparam file="$(find infnet)/cfg/waffle_pi_mask_param.yaml" />
+    
+    <node name="get_point_message" 
+        pkg="infnet" 
+        type="get_point_from_message.py"
+        output="screen"
+        args="$(arg show_image)">
+
+        <remap from="image_raw" to="/camera/rgb/image_raw"/>
+        <remap from="goal_centroid" to="/camera/img_centroid"/>
+        <remap from="goal_base" to="/camera/img_base"/>
+    </node>
+
+
+    <!-- PVBS - IBVS -->
+    <arg name="K_eu" default="0.25" />
+    <arg name="K_ev" default="0.25" />
+    <arg name="X_goal" default="320" />
+    <arg name="Y_goal" default="480" />
+    <arg name="max_lin" default="0.5" />
+    <arg name="max_ang" default="0.5" />   
+    <arg name="control_type" default="0"/>
+    <arg name="camera_height" default="0.1"/>
+   
+    <node name="visual_servoing" 
+        pkg="infnet" 
+        type="turtlebot3_visual_servoing_pbvs.py"
+        args="$(arg K_eu) $(arg K_ev) $(arg X_goal) $(arg Y_goal) 
+             $(arg max_lin) $(arg max_ang) $(arg control_type) 
+             $(arg camera_height)"
+        output="screen">
+
+    <remap from="img_point" to="/camera/img_base"/>
+    <remap from="odom" to="/odom"/>
+    <remap from="cmd_vel" to="/cmd_vel"/>
+    <remap from="control_type" to="/control_type"/>
+    <remap from="camera_info" to="/camera/rgb/camera_info"/>
+    <remap from="camera_matrix" to="/camera/rgb/camera_info"/>
+
+    </node>
+
+
+</launch>

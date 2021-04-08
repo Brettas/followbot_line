@@ -79,8 +79,8 @@ universal_robot/ur_msgs/CMakeFiles/ur_msgs_generate_messages_cpp: /home/vini/cat
 
 /home/vini/catkin_ws/devel/include/ur_msgs/IOStates.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/vini/catkin_ws/devel/include/ur_msgs/IOStates.h: /home/vini/catkin_ws/src/universal_robot/ur_msgs/msg/IOStates.msg
-/home/vini/catkin_ws/devel/include/ur_msgs/IOStates.h: /home/vini/catkin_ws/src/universal_robot/ur_msgs/msg/Analog.msg
 /home/vini/catkin_ws/devel/include/ur_msgs/IOStates.h: /home/vini/catkin_ws/src/universal_robot/ur_msgs/msg/Digital.msg
+/home/vini/catkin_ws/devel/include/ur_msgs/IOStates.h: /home/vini/catkin_ws/src/universal_robot/ur_msgs/msg/Analog.msg
 /home/vini/catkin_ws/devel/include/ur_msgs/IOStates.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/vini/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from ur_msgs/IOStates.msg"
 	cd /home/vini/catkin_ws/src/universal_robot/ur_msgs && /home/vini/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/vini/catkin_ws/src/universal_robot/ur_msgs/msg/IOStates.msg -Iur_msgs:/home/vini/catkin_ws/src/universal_robot/ur_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p ur_msgs -o /home/vini/catkin_ws/devel/include/ur_msgs -e /opt/ros/noetic/share/gencpp/cmake/..

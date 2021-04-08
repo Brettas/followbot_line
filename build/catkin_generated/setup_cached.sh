@@ -7,6 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/vini/catkin_ws/devel:$CMAKE_PREFIX_PATH"
 export PWD='/home/vini/catkin_ws/build'
-export ROS_PACKAGE_PATH="/home/vini/catkin_ws/src:$ROS_PACKAGE_PATH"
